@@ -1,69 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Resources</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <title>Resources</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5fbff, #eef6fb);
+            color: #1f2d3d;
+        }
 
-    h1 {
-      text-align: center;
-    }
+        h1 {
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #0a3d62;
+            margin-bottom: 30px;
+        }
 
-    ul {
-      max-width: 700px;
-      margin: 20px auto;
-      padding-left: 20px;
-    }
+        ul {
+            max-width: 700px;
+            margin: 20px auto;
+            padding-left: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px 35px;
+            box-shadow: 0 10px 30px rgba(0, 120, 200, 0.08);
+        }
 
-    li {
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
+        li {
+            margin-bottom: 14px;
+            line-height: 1.6;
+            position: relative;
+        }
 
-    a {
-      color: #1a73e8;
-      text-decoration: none;
-    }
+        li::marker {
+            color: #00a8e8;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+        a {
+            color: #0077c8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover {
+            color: #00a8e8;
+            border-bottom: 1px solid #00a8e8;
+        }
+    </style>
+
 </head>
+
 <body>
 
-  <h1>Resources</h1>
+    <h1>Resources</h1>
 
-  <ul id="resourceList"></ul>
+    <ul id="resourceList"></ul>
 
-  <script>
-  fetch(`resources.json?v=${Date.now()}`)
-    .then(response => response.json())
-    .then(data => {
-      const list = document.getElementById('resourceList');
-      list.innerHTML = ""; // clear cached DOM
+    <script>
+        fetch(`resources.json?v=${Date.now()}`)
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('resourceList');
+                list.innerHTML = ""; // clear cached DOM
 
-      data.resources.forEach(item => {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
+                data.resources.forEach(item => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
 
-        link.href = item.file;
-        link.textContent = item.title;
-        link.target = '_blank';
+                    link.href = item.file;
+                    link.textContent = item.title;
+                    link.target = '_blank';
 
-        li.appendChild(link);
-        list.appendChild(li);
-      });
-    })
-    .catch(() => {
-      document.getElementById('resourceList').innerHTML =
-        '<li>Failed to load resources.</li>';
-    });
-</script>
+                    li.appendChild(link);
+                    list.appendChild(li);
+                });
+            })
+            .catch(() => {
+                document.getElementById('resourceList').innerHTML =
+                    '<li>Failed to load resources.</li>';
+            });
+    </script>
 
 </body>
+
 </html>
