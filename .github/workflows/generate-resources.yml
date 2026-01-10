@@ -1,0 +1,42 @@
+name: Generate resources.json
+
+on:
+  push:
+    paths:
+      - "*.pdf"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build resources.json
+        run: |
+          echo '{ "resources": [' > resources.json
+          first=true
+
+          for file in *.pdf; do
+            [ -e "$file" ] || continue
+
+            title=$(basename "$file" .pdf)
+
+            if [ "$first" = false ]; then
+              echo ',' >> resources.json
+            fi
+            first=false
+
+            echo "  { \"title\": \"$title\", \"file\": \"$file\" }" >> resources.json
+          done
+
+          echo '] }' >> resources.json
+
+      - name: Commit generated file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add resources.json
+          git commit -m "Auto-generate resources.json" || echo "No changes"
+          git push
