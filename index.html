@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Resources</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      max-width: 700px;
+      margin: 20px auto;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Resources Home</h1>
-  <p>GitHub Pages is working.</p>
+
+  <h1>Resources</h1>
+
+  <ul id="resourceList"></ul>
+
+  <script>
+    fetch('resources.json')
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('resourceList');
+
+        data.resources.forEach(item => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+
+          link.href = item.file;
+          link.textContent = item.title;
+          link.target = '_blank';
+
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById('resourceList').innerHTML =
+          '<li>Failed to load resources.</li>';
+      });
+  </script>
+
 </body>
 </html>
