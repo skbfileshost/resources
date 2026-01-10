@@ -41,28 +41,29 @@
   <ul id="resourceList"></ul>
 
   <script>
-    fetch('resources.json')
-      .then(response => response.json())
-      .then(data => {
-        const list = document.getElementById('resourceList');
+  fetch(`resources.json?v=${Date.now()}`)
+    .then(response => response.json())
+    .then(data => {
+      const list = document.getElementById('resourceList');
+      list.innerHTML = ""; // clear cached DOM
 
-        data.resources.forEach(item => {
-          const li = document.createElement('li');
-          const link = document.createElement('a');
+      data.resources.forEach(item => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
 
-          link.href = item.file;
-          link.textContent = item.title;
-          link.target = '_blank';
+        link.href = item.file;
+        link.textContent = item.title;
+        link.target = '_blank';
 
-          li.appendChild(link);
-          list.appendChild(li);
-        });
-      })
-      .catch(() => {
-        document.getElementById('resourceList').innerHTML =
-          '<li>Failed to load resources.</li>';
+        li.appendChild(link);
+        list.appendChild(li);
       });
-  </script>
+    })
+    .catch(() => {
+      document.getElementById('resourceList').innerHTML =
+        '<li>Failed to load resources.</li>';
+    });
+</script>
 
 </body>
 </html>
