@@ -1,5 +1,9 @@
 { "resources": [
+  { "title": "Apostrophes Masterclass", "file": "Apostrophes Masterclass.pdf" }
+,
   { "title": "Conjunctions – Complete Deep Dive", "file": "Conjunctions – Complete Deep Dive.pdf" }
+,
+  { "title": "Nouns - Part 1", "file": "Nouns - Part 1.pdf" }
 ,
   { "title": "Power of Conjunctions", "file": "Power of Conjunctions.pdf" }
 ] }
